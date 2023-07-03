@@ -26,7 +26,6 @@ const headers: { name: string, desc: string, type: 'TEXT' | 'INTEGER', index?: b
   { name: 'single_zip_for_multi_town', desc: "一つの郵便番号で二以上の町域を表す場合の表示", type: "INTEGER" }, //　（注5）　（「1」は該当、「0」は該当せず）
   { name: 'updated', desc: "更新の表示", type: "INTEGER" }, //（注6）（「0」は変更なし、「1」は変更あり、「2」廃止（廃止データのみ使用））
   { name: 'updated_reason', desc: "変更理由", type: "INTEGER" }, //　（「0」は変更なし、「1」市政・区政・町政・分区・政令指定都市施行、「2」住居表示の実施、「3」区画整理、「4」郵便区調整等、「5」訂正、「6」廃止（廃止データのみ使用））
-  // { name: 'unknown_flg', desc: '不明なカラムが一つ増えている', type: "INTEGER" },
 ]
 
 const main = async () => {
@@ -71,12 +70,6 @@ const main = async () => {
     (${headers.map(({ name }) => name).join(', ')})
     VALUES (${headers.map(({ name }) => `$${name}`).join(', ')});
   `);
-
-
-console.log(`INSERT INTO utf_all
-(${headers.map(({ name }) => name).join(', ')})
-VALUES (${headers.map(({ name }) => `$${name}`).join(', ')});
-`)
 
   const transaction = db.transaction((rows) => {
       for (const row of rows) {
